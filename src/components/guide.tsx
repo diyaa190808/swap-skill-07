@@ -16,7 +16,7 @@ const STEPS = [
 
 export function Guide({ onFinish }: { onFinish: () => void }) {
   const [i, setI] = useState(0);
-  const S = STEPS[i];
+  const S = STEPS[i]!;
   return (
     <div>
       <div className="mb-6 flex items-center gap-3">

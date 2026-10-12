@@ -62,7 +62,7 @@ export function SessionCard({ s, compact }: { s: Session; compact?: boolean }) {
             <>
               <div className="flex gap-2">
                 <div className="relative flex-1"><Link2 className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input className="h-8 pl-8 text-sm" placeholder="Paste Google Meet / Zoom link" value={link} onChange={(e) => setLink(e.target.value)} aria-label="Meeting link" /></div>
-                <Button size="sm" variant="outline" onClick={() => { if (!/^https?:\/\//.test(link)) return toast.error("Enter a full link starting with https://"); patch({ link }); toast.success("Meeting link saved"); }}>Save</Button>
+                <Button size="sm" variant="outline" onClick={() => { if (!/^https?:\/\//.test(link)) { toast.error("Enter a full link starting with https://"); return; } patch({ link }); toast.success("Meeting link saved"); }}>Save</Button>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <Button size="sm" variant={s.meDone ? "secondary" : "hero"} disabled={s.meDone} onClick={() => advanceSession(s.id, "me")}><CheckCircle2 />{s.meDone ? "You confirmed" : "Mark completed"}</Button>
@@ -94,12 +94,13 @@ export function ProposeDialog({ peer, open, onOpenChange, defaultSkill }: { peer
   const price = peer.pricePerHour ? Math.round((peer.pricePerHour * duration) / 60) : undefined;
   const skills = role === "learn" ? learnable : teachable;
 
-  function submit() {
-    if (!skill) return toast.error("Pick a skill");
-    if (date < new Date().toISOString().slice(0, 10)) return toast.error("Choose a future date");
-    if (role === "learn" && payment === "credits" && !enough) return toast.error("Not enough credits");
-    if (role === "learn" && payment === "money" && !price) return toast.error(`${peer.name} doesn't accept money payments`);
-    if (isDuplicate(state.sessions, { peer: peer.username, skill, date, time })) return toast.error("You already have this session booked");
+  function submit(): void {
+    const fail = (m: string) => { toast.error(m); };
+    if (!skill) return fail("Pick a skill");
+    if (date < new Date().toISOString().slice(0, 10)) return fail("Choose a future date");
+    if (role === "learn" && payment === "credits" && !enough) return fail("Not enough credits");
+    if (role === "learn" && payment === "money" && !price) return fail(`${peer.name} doesn't accept money payments`);
+    if (isDuplicate(state.sessions, { peer: peer.username, skill, date, time })) return fail("You already have this session booked");
     const s: Session = { id: uid(), peer: peer.username, skill, role, date, time, duration, cost, payment: role === "teach" ? "credits" : payment, price: payment === "money" ? price : undefined, status: "proposed", meDone: false, peerDone: false, settled: false };
     set((st) => ({
       ...st,
