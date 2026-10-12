@@ -10,7 +10,7 @@ import { hashPassword, makeUser, useApp } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({ mode: s.mode === "login" ? ("login" as const) : ("signup" as const) }),
+  validateSearch: (s: Record<string, unknown>) => ({ mode: s["mode"] === "login" ? ("login" as const) : ("signup" as const) }),
   head: () => ({
     meta: [
       { title: "Sign in or join — SwapSkill" },

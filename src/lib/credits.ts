@@ -18,7 +18,7 @@ export type Session = {
   duration: number; // minutes
   cost: number; // credits
   payment: Payment;
-  price?: number; // INR when payment = money
+  price?: number | undefined; // INR when payment = money
   status: SessionStatus;
   link?: string;
   meDone: boolean;
