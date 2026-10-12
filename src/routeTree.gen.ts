@@ -10,12 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as SetupRouteImport } from './routes/setup'
+import { Route as ShellCalendarRouteImport } from './routes/_shell.calendar'
+import { Route as ShellCommunityRouteImport } from './routes/_shell.community'
+import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
+import { Route as ShellExploreRouteImport } from './routes/_shell.explore'
+import { Route as ShellGroupsRouteImport } from './routes/_shell.groups'
+import { Route as ShellMessagesRouteImport } from './routes/_shell.messages'
+import { Route as ShellProfileRouteImport } from './routes/_shell.profile'
+import { Route as ShellProgressRouteImport } from './routes/_shell.progress'
+import { Route as ShellSettingsRouteImport } from './routes/_shell.settings'
+import { Route as ShellWalletRouteImport } from './routes/_shell.wallet'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShellRoute = ShellRouteImport.update({
+  id: '/_shell',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -28,33 +43,156 @@ const SetupRoute = SetupRouteImport.update({
   path: '/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShellCalendarRoute = ShellCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellCommunityRoute = ShellCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellDashboardRoute = ShellDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellExploreRoute = ShellExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellGroupsRoute = ShellGroupsRouteImport.update({
+  id: '/groups',
+  path: '/groups',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellMessagesRoute = ShellMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProfileRoute = ShellProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProgressRoute = ShellProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellSettingsRoute = ShellSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellWalletRoute = ShellWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => ShellRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/setup': typeof SetupRoute
+  '/calendar': typeof ShellCalendarRoute
+  '/community': typeof ShellCommunityRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/explore': typeof ShellExploreRoute
+  '/groups': typeof ShellGroupsRoute
+  '/messages': typeof ShellMessagesRoute
+  '/profile': typeof ShellProfileRoute
+  '/progress': typeof ShellProgressRoute
+  '/settings': typeof ShellSettingsRoute
+  '/wallet': typeof ShellWalletRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/setup': typeof SetupRoute
+  '/calendar': typeof ShellCalendarRoute
+  '/community': typeof ShellCommunityRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/explore': typeof ShellExploreRoute
+  '/groups': typeof ShellGroupsRoute
+  '/messages': typeof ShellMessagesRoute
+  '/profile': typeof ShellProfileRoute
+  '/progress': typeof ShellProgressRoute
+  '/settings': typeof ShellSettingsRoute
+  '/wallet': typeof ShellWalletRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_shell': typeof ShellRouteWithChildren
   '/auth': typeof AuthRoute
   '/setup': typeof SetupRoute
+  '/_shell/calendar': typeof ShellCalendarRoute
+  '/_shell/community': typeof ShellCommunityRoute
+  '/_shell/dashboard': typeof ShellDashboardRoute
+  '/_shell/explore': typeof ShellExploreRoute
+  '/_shell/groups': typeof ShellGroupsRoute
+  '/_shell/messages': typeof ShellMessagesRoute
+  '/_shell/profile': typeof ShellProfileRoute
+  '/_shell/progress': typeof ShellProgressRoute
+  '/_shell/settings': typeof ShellSettingsRoute
+  '/_shell/wallet': typeof ShellWalletRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/setup'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/setup'
+    | '/calendar'
+    | '/community'
+    | '/dashboard'
+    | '/explore'
+    | '/groups'
+    | '/messages'
+    | '/profile'
+    | '/progress'
+    | '/settings'
+    | '/wallet'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/setup'
-  id: '__root__' | '/' | '/auth' | '/setup'
+  to:
+    | '/'
+    | '/auth'
+    | '/setup'
+    | '/calendar'
+    | '/community'
+    | '/dashboard'
+    | '/explore'
+    | '/groups'
+    | '/messages'
+    | '/profile'
+    | '/progress'
+    | '/settings'
+    | '/wallet'
+  id:
+    | '__root__'
+    | '/'
+    | '/_shell'
+    | '/auth'
+    | '/setup'
+    | '/_shell/calendar'
+    | '/_shell/community'
+    | '/_shell/dashboard'
+    | '/_shell/explore'
+    | '/_shell/groups'
+    | '/_shell/messages'
+    | '/_shell/profile'
+    | '/_shell/progress'
+    | '/_shell/settings'
+    | '/_shell/wallet'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ShellRoute: typeof ShellRouteWithChildren
   AuthRoute: typeof AuthRoute
   SetupRoute: typeof SetupRoute
 }
@@ -66,6 +204,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_shell': {
+      id: '/_shell'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof ShellRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -82,11 +227,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SetupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_shell/calendar': {
+      id: '/_shell/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof ShellCalendarRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/community': {
+      id: '/_shell/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof ShellCommunityRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/dashboard': {
+      id: '/_shell/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof ShellDashboardRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/explore': {
+      id: '/_shell/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ShellExploreRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/groups': {
+      id: '/_shell/groups'
+      path: '/groups'
+      fullPath: '/groups'
+      preLoaderRoute: typeof ShellGroupsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/messages': {
+      id: '/_shell/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof ShellMessagesRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/profile': {
+      id: '/_shell/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ShellProfileRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/progress': {
+      id: '/_shell/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ShellProgressRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/settings': {
+      id: '/_shell/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof ShellSettingsRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/wallet': {
+      id: '/_shell/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof ShellWalletRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
+interface ShellRouteChildren {
+  ShellCalendarRoute: typeof ShellCalendarRoute
+  ShellCommunityRoute: typeof ShellCommunityRoute
+  ShellDashboardRoute: typeof ShellDashboardRoute
+  ShellExploreRoute: typeof ShellExploreRoute
+  ShellGroupsRoute: typeof ShellGroupsRoute
+  ShellMessagesRoute: typeof ShellMessagesRoute
+  ShellProfileRoute: typeof ShellProfileRoute
+  ShellProgressRoute: typeof ShellProgressRoute
+  ShellSettingsRoute: typeof ShellSettingsRoute
+  ShellWalletRoute: typeof ShellWalletRoute
+}
+
+const ShellRouteChildren: ShellRouteChildren = {
+  ShellCalendarRoute: ShellCalendarRoute,
+  ShellCommunityRoute: ShellCommunityRoute,
+  ShellDashboardRoute: ShellDashboardRoute,
+  ShellExploreRoute: ShellExploreRoute,
+  ShellGroupsRoute: ShellGroupsRoute,
+  ShellMessagesRoute: ShellMessagesRoute,
+  ShellProfileRoute: ShellProfileRoute,
+  ShellProgressRoute: ShellProgressRoute,
+  ShellSettingsRoute: ShellSettingsRoute,
+  ShellWalletRoute: ShellWalletRoute,
+}
+
+const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ShellRoute: ShellRouteWithChildren,
   AuthRoute: AuthRoute,
   SetupRoute: SetupRoute,
 }
